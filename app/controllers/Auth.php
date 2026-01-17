@@ -3,9 +3,9 @@
 class Auth extends Controller {
     public function index() {
         $data['judul'] = 'Login';
-        $this->view('templates/header', $data);
+        // $this->view('templates/header', $data);
         $this->view('auth/login', $data);
-        $this->view('templates/footer');
+        // $this->view('templates/footer');
     }
 
     public function login() {
@@ -16,6 +16,7 @@ class Auth extends Controller {
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['role'] = $user['role'];
                     $_SESSION['nama'] = $user['nama'];
+                    $_SESSION['username'] = $user['username'];
                     if($user['role'] == 'admin') {
                         header('Location: ' . BASEURL . '/admin');
                     } else {
@@ -37,9 +38,9 @@ class Auth extends Controller {
 
     public function register() {
         $data['judul'] = 'Register';
-        $this->view('templates/header', $data);
+        // $this->view('templates/header', $data);
         $this->view('auth/register', $data);
-        $this->view('templates/footer');
+        // $this->view('templates/footer');
     }
 
     public function tambah() {

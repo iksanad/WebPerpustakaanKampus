@@ -7,7 +7,9 @@ $(function () {
         $('#pengarang').val('');
         $('#penerbit').val('');
         $('#tahun').val('');
+        $('#tahun').val('');
         $('#stok').val('');
+        $('#deskripsi').val('');
         $('#id').val('');
         $('#gambarLama').val('');
         $('#previewGambar').attr('src', '').addClass('d-none');
@@ -31,7 +33,9 @@ $(function () {
                 $('#pengarang').val(data.pengarang);
                 $('#penerbit').val(data.penerbit);
                 $('#tahun').val(data.tahun);
+                $('#tahun').val(data.tahun);
                 $('#stok').val(data.stok);
+                $('#deskripsi').val(data.deskripsi);
                 $('#id').val(data.id);
                 $('#gambarLama').val(data.gambar);
                 if (data.gambar) {

@@ -85,4 +85,9 @@ class Peminjaman_model {
         $this->db->execute();
         return $this->db->rowCount();
     }
+
+    public function getPeminjamanBulanIniCount() {
+        $this->db->query("SELECT COUNT(*) as total FROM loans WHERE MONTH(tanggal_pinjam) = MONTH(CURRENT_DATE()) AND YEAR(tanggal_pinjam) = YEAR(CURRENT_DATE())");
+        return $this->db->single()['total'];
+    }
 }

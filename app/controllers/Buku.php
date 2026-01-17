@@ -19,7 +19,25 @@ class Buku extends Controller {
         $data['buku'] = $this->model('Buku_model')->getAllBuku();
         
         $this->view('templates/header', $data);
-        $this->view('buku/index', $data);
+        $this->view('admin/buku', $data);
+        $this->view('templates/footer');
+    }
+
+    public function form($id = null) {
+        // Form for Add/Edit Book (Admin Only)
+        if($_SESSION['role'] != 'admin') {
+            header('Location: ' . BASEURL);
+            exit;
+        }
+
+        $data['judul'] = $id ? 'Edit Buku' : 'Tambah Buku';
+        
+        if($id) {
+            $data['buku'] = $this->model('Buku_model')->getBukuById($id);
+        }
+        
+        $this->view('templates/header', $data);
+        $this->view('admin/form_buku', $data);
         $this->view('templates/footer');
     }
 
@@ -29,7 +47,16 @@ class Buku extends Controller {
         $data['buku'] = $this->model('Buku_model')->getAllBuku();
         
         $this->view('templates/header', $data);
-        $this->view('buku/katalog', $data);
+        $this->view('katalog', $data);
+        $this->view('templates/footer');
+    }
+
+    public function cari() {
+        $data['judul'] = 'Cari Buku';
+        $data['buku'] = $this->model('Buku_model')->cariDataBuku();
+        
+        $this->view('templates/header', $data);
+        $this->view('katalog', $data);
         $this->view('templates/footer');
     }
 

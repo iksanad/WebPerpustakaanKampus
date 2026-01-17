@@ -6,7 +6,7 @@
 
 <div class="row mb-3">
     <div class="col-md-6">
-        <form action="<?= BASEURL; ?>/mahasiswa/cari" method="post" class="d-flex">
+        <form action="<?= BASEURL; ?>/buku/cari" method="post" class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Cari buku..." name="keyword" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Cari</button>
         </form>
@@ -29,6 +29,12 @@
                     <small>Tahun: <?= $buku['tahun']; ?></small><br>
                     <small>Stok: <strong><?= $buku['stok']; ?></strong></small>
                 </p>
+                <p class="card-text text-muted" style="font-size: 0.9em;">
+                    <?= (str_word_count($buku['deskripsi'] ?? '') > 10 ? substr($buku['deskripsi'] ?? '',0,50)."..." : $buku['deskripsi'] ?? ''); ?>
+                </p>
+                <button type="button" class="btn btn-info btn-sm w-100 mb-2 tombolDetail" data-bs-toggle="modal" data-bs-target="#modalDetail" data-deskripsi="<?= htmlspecialchars($buku['deskripsi'] ?? ''); ?>" data-judul="<?= $buku['judul']; ?>">
+                    Detail
+                </button>
                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'mahasiswa'): ?>
                     <?php if($buku['stok'] > 0): ?>
                         <button type="button" class="btn btn-primary btn-sm w-100 tomabolPinjam" data-bs-toggle="modal" data-bs-target="#modalPinjam" data-id="<?= $buku['id']; ?>" data-judul="<?= $buku['judul']; ?>">
@@ -80,10 +86,27 @@
   </div>
 </div>
 
+<!-- Modal Detail -->
+<div class="modal fade" id="modalDetail" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailJudul">Detail Buku</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="detailDeskripsi"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // We reuse the logic from script.js or inline here if script.js doesnt cover it (script.js covered .tombolTambahData and .modalUbah)
-        // We need logic for .tombolPinjam
+        // Modal Pinjam
         const modalPinjam = document.getElementById('modalPinjam')
         if (modalPinjam) {
             modalPinjam.addEventListener('show.bs.modal', event => {
@@ -95,6 +118,22 @@
                 const textJudul = modalPinjam.querySelector('#judul_buku_pinjam')
                 
                 inputId.value = id
+                textJudul.textContent = judul
+            })
+        }
+
+        // Modal Detail
+        const modalDetail = document.getElementById('modalDetail')
+        if (modalDetail) {
+            modalDetail.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget
+                const deskripsi = button.getAttribute('data-deskripsi')
+                const judul = button.getAttribute('data-judul')
+                
+                const textDeskripsi = modalDetail.querySelector('#detailDeskripsi')
+                const textJudul = modalDetail.querySelector('#detailJudul')
+                
+                textDeskripsi.textContent = deskripsi ? deskripsi : 'Tidak ada deskripsi.'
                 textJudul.textContent = judul
             })
         }

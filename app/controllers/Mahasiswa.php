@@ -14,7 +14,7 @@ class Mahasiswa extends Controller {
         $data['riwayat'] = $this->model('Peminjaman_model')->getPeminjamanByUser($_SESSION['user_id']);
         
         $this->view('templates/header', $data);
-        $this->view('mahasiswa/index', $data);
+        $this->view('mahasiswa/mahasiswa', $data);
         $this->view('templates/footer');
     }
 
@@ -24,7 +24,7 @@ class Mahasiswa extends Controller {
         $data['riwayat'] = $this->model('Peminjaman_model')->getPeminjamanByUser($_SESSION['user_id']);
         
         $this->view('templates/header', $data);
-        $this->view('mahasiswa/index', $data);
+        $this->view('mahasiswa/mahasiswa', $data);
         $this->view('templates/footer');
     }
 }

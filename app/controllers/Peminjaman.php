@@ -13,7 +13,7 @@ class Peminjaman extends Controller {
             $data['judul'] = 'Daftar Peminjaman';
             $data['peminjaman'] = $this->model('Peminjaman_model')->getAllPeminjaman();
             $this->view('templates/header', $data);
-            $this->view('peminjaman/index', $data); // We need to create this view or reuse admin dashboard part
+            $this->view('admin/peminjaman', $data); // We need to create this view or reuse admin dashboard part
             $this->view('templates/footer');
         } else {
             header('Location: ' . BASEURL . '/mahasiswa');
@@ -94,7 +94,7 @@ class Peminjaman extends Controller {
         $data['buku'] = $this->model('Buku_model')->getAllBuku();
 
         $this->view('templates/header', $data);
-        $this->view('peminjaman/create', $data);
+        $this->view('admin/create_peminjaman', $data);
         $this->view('templates/footer');
     }
 

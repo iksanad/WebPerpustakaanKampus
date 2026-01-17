@@ -23,7 +23,7 @@ class Admin extends Controller {
         $data['overdue_loans'] = $db->single()['count'];
         
         $this->view('templates/header', $data);
-        $this->view('admin/index', $data);
+        $this->view('admin/admin', $data);
         $this->view('templates/footer');
     }
 }
